@@ -5,7 +5,9 @@ leftWristY=0;
 rightWristX=0;
 rightWristY=0;
 scoreLeftWrist=0;
+scoreRightWrist=0;
 song1_status="";
+song2_status="";
 
 function preload(){
     peter_pan_song=loadSound("music2.mp3");
@@ -30,6 +32,7 @@ function gotPoses(results){
     if(results.length>0){
         console.log(results);
         scoreLeftWrist=results[0].pose.keypoints[9].score;
+        scoreRightWrist=results[0].pose.keypoints[10].score;
 
         leftWristX=results[0].pose.leftWrist.x;
         leftWristY=results[0].pose.leftWrist.y;
@@ -56,6 +59,16 @@ function draw(){
     if(song1_status=false){
         harry_potter_song.play();
         document.getElementById("song_name").innerHTML="Song Name - "+harry_potter_song;
+    }
+
+    if(scoreRightWrist>0.2){
+        circle(leftWristX,leftWristY,20);
+        harry_potter_song.stop();
+    }
+
+    if(song2_status=false){
+        peter_pan_song.play();
+        document.getElementById("song_name").innerHTML="Song Name - "+peter_pan_song;
     }
 }
 
